@@ -12,7 +12,7 @@
 
 当然dedacker不仅于此，还可以拓展性的导入text格式，json格式的标记，可以根据label的形式来修改，非常简单易用。
 
-![PicName](http://ofwzcunzi.bkt.clouddn.com/debd8aUtypVCvh6X.png)
+<center><img src="http://ofwzcunzi.bkt.clouddn.com/debd8aUtypVCvh6X.png"></center>
 
 # 使用
 
