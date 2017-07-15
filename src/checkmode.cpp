@@ -65,7 +65,7 @@ void detection_check_mode(char *argv[]) {
             vector<BoundingBox> current_image_boxes = it->second;
 
             cv::Mat image = cv::imread(image_path, cv::IMREAD_COLOR);
-            if (!image.data == 0){
+            if (!image.data){
                 // iterate vector to draw a box on image
 
                 for (auto it = current_image_boxes.begin(); it != current_image_boxes.end(); ++it) {
