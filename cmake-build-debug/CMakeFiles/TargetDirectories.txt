@@ -1,0 +1,3 @@
+/media/jintian/Netac/TencentWork/codes/dedacker/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/media/jintian/Netac/TencentWork/codes/dedacker/cmake-build-debug/CMakeFiles/edit_cache.dir
+/media/jintian/Netac/TencentWork/codes/dedacker/cmake-build-debug/CMakeFiles/dedacker.dir
