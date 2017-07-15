@@ -29,7 +29,9 @@ struct BoundingBox {
 };
 
 map<string, vector<BoundingBox> > loadLabelFileText(char *path);
+
 map<string, vector<BoundingBox> > loadLabelFileJson(char *path);
+
 void drawBoundingBoxOnImage(cv::Mat &image, struct BoundingBox &bbox);
 
 
@@ -53,6 +55,7 @@ void detection_check_mode(char *argv[]) {
     // Now reading label file, this will load a map, key is image path and value is vector<BoundingBox>
     map<string, vector<BoundingBox> > image_box_map = loadLabelFileText(label_file);
     cout << colors::green << "got all " << image_box_map.size() << " images labeled.\n";
+    cout << "press N to next image.\n";
 
     map<string, vector<BoundingBox> >::iterator it;
     for (it = image_box_map.begin(); it != image_box_map.end(); ++it) {
@@ -65,7 +68,7 @@ void detection_check_mode(char *argv[]) {
             vector<BoundingBox> current_image_boxes = it->second;
 
             cv::Mat image = cv::imread(image_path, cv::IMREAD_COLOR);
-            if (!image.data){
+            if (image.data) {
                 // iterate vector to draw a box on image
 
                 for (auto it = current_image_boxes.begin(); it != current_image_boxes.end(); ++it) {
@@ -81,13 +84,17 @@ void detection_check_mode(char *argv[]) {
                 cv::namedWindow("image display", cv::WINDOW_AUTOSIZE);
                 cv::imshow("image display", image);
 
-                char c = (char) cv::waitKey();
-                switch (c){
-                    case 'q':
+                while (true) {
+                    char c = (char) cv::waitKey();
+                    if (c == 'q'){
                         cv::destroyAllWindows();
                         exit(0);
-                    default:
+                    } else if (c == 'n') {
+                        cout << "pressed n\n";
+                        break;
+                    } else {
                         continue;
+                    }
                 }
             } else {
                 cout << colors::red << "[BAD] load image failed: " << image_path << endl;
@@ -119,7 +126,7 @@ map<string, vector<BoundingBox> > loadLabelFileText(char *path) {
         getline(infile, line);
 
         vector<string> line_split;
-        if (line == ""){
+        if (line == "") {
             break;
         }
         SplitString(line, line_split, " ");
@@ -145,7 +152,7 @@ map<string, vector<BoundingBox> > loadLabelFileText(char *path) {
             // image_name not in map, new a key-value pair
             vector<BoundingBox> bbox_vector;
             bbox_vector.push_back(bbox);
-            image_box_map.insert( pair<string, vector<BoundingBox>>(image_name, bbox_vector) );
+            image_box_map.insert(pair<string, vector<BoundingBox>>(image_name, bbox_vector));
         } else {
             // if image_name already in map, find this key value push_back into vector
             vector<BoundingBox> current_image_bboxes = image_box_map[image_name];
